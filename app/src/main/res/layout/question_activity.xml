@@ -14,26 +14,10 @@
     <!-- Video -->
     <include layout="@layout/video" />
 
-    <Button
-        android:id="@+id/question_option1_btn"
-        style="@style/AppTheme.TextAnswer"
-        android:text="BOLA" />
+    <!-- Options -->
+    <include android:id="@+id/options_layout" layout="@layout/options_fragment" />
 
-    <Button
-        android:id="@+id/question_option2_btn"
-        style="@style/AppTheme.TextAnswer"
-        android:background="@color/colorPrimaryDark"
-        android:text="CASA" />
-
-    <Button
-        android:id="@+id/question_option3_btn"
-        style="@style/AppTheme.TextAnswer"
-        android:text="SAPATO" />
-
-    <Button
-        android:id="@+id/question_option4_btn"
-        style="@style/AppTheme.TextAnswer"
-        android:background="@color/colorPrimaryDark"
-        android:text="CARRO" />
+    <!-- Resposta -->
+    <include android:id="@+id/answer_layout" layout="@layout/answer_fragment" />
 
 </LinearLayout>

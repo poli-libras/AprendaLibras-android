@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/question_option1_btn"
+        style="@style/AppTheme.TextAnswer"
+        android:text="BOLA" />
+
+    <Button
+        android:id="@+id/question_option2_btn"
+        style="@style/AppTheme.TextAnswer"
+        android:background="@color/colorPrimaryDark"
+        android:text="CASA" />
+
+    <Button
+        android:id="@+id/question_option3_btn"
+        style="@style/AppTheme.TextAnswer"
+        android:text="SAPATO" />
+
+    <Button
+        android:id="@+id/question_option4_btn"
+        style="@style/AppTheme.TextAnswer"
+        android:background="@color/colorPrimaryDark"
+        android:text="CARRO" />
+
+</LinearLayout>
