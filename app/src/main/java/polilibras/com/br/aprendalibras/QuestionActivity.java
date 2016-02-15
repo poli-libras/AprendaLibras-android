@@ -3,34 +3,37 @@ package polilibras.com.br.aprendalibras;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.support.v7.app.AppCompatActivity;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.VideoView;
 
-public class QuestionActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    private Activity activity = this;
+public class QuestionActivity extends VideoActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_activity);
 
-        ImageView img = (ImageView)findViewById(R.id.question_image_view);
-        img.setBackgroundResource(R.drawable.vj_futebol);
+        Question question = QuestionProvider.getInstance().getNextQuestion();
+        mVideoView.setVideoURI(Uri.parse(question.getSource()));
 
-        // Get the background, which has been compiled to an AnimationDrawable object.
-        AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
+        List<Button> optionBtns = new ArrayList<>(4);
+        optionBtns.add((Button) findViewById(R.id.question_option1_btn));
+        optionBtns.add((Button) findViewById(R.id.question_option2_btn));
+        optionBtns.add((Button) findViewById(R.id.question_option3_btn));
+        optionBtns.add((Button) findViewById(R.id.question_option4_btn));
 
-        // Start the animation (looped playback by default).
-        frameAnimation.start();
-
-        findViewById(R.id.question_option1_btn).setOnClickListener(new OptionClickListener(this, true));
-        findViewById(R.id.question_option2_btn).setOnClickListener(new OptionClickListener(this, false));
-        findViewById(R.id.question_option3_btn).setOnClickListener(new OptionClickListener(this, false));
-        findViewById(R.id.question_option4_btn).setOnClickListener(new OptionClickListener(this, false));
+        for (int i = 0; i < optionBtns.size(); i++) {
+            optionBtns.get(i).setText(question.getOptions().get(i).toUpperCase());
+            optionBtns.get(i).setOnClickListener(new OptionClickListener(activity, question.getCorrectAnswer() == i));
+        }
     }
 
     private class OptionClickListener implements View.OnClickListener {
@@ -48,6 +51,7 @@ public class QuestionActivity extends AppCompatActivity {
             Intent intent = new Intent(mContext, AnswerActivity.class);
             intent.putExtra(AnswerActivity.INTENT_CORRECT_ANSWER_BOOL, mCorrectOption);
             startActivity(intent);
+            finish();
         }
     }
 }

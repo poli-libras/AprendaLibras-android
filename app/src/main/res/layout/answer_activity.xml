@@ -8,24 +8,38 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     tools:context="polilibras.com.br.aprendalibras.AnswerActivity">
 
-    <ImageView
-        android:id="@+id/answer_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="2"
-        android:layout_marginBottom="10dp"/>
+    <!-- Video -->
+    <include layout="@layout/video" />
 
     <TextView
         android:id="@+id/answer_msg_txt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:textColor="@color/colorPrimary"
         android:textSize="28sp"
         android:text="PARABÉNS!!"
+        android:textAlignment="center"/>
+
+    <TextView
+        android:id="@+id/answer_correct_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
         android:textAlignment="center"
-        android:layout_weight="2"/>
+        android:text="@string/correct_answer"/>
+
+    <Button
+        android:id="@+id/answer_next_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="PRÓXIMA PERGUNTA >"
+        android:textColor="@android:color/white"
+        android:padding="10dp" />
 
 </LinearLayout>

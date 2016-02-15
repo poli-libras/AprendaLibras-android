@@ -11,12 +11,8 @@
     android:gravity="center"
     tools:context="polilibras.com.br.aprendalibras.QuestionActivity">
 
-    <ImageView
-        android:id="@+id/question_image_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="6"
-        android:layout_marginBottom="10dp"/>
+    <!-- Video -->
+    <include layout="@layout/video" />
 
     <Button
         android:id="@+id/question_option1_btn"

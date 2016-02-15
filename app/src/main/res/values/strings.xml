@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AprendaLibras</string>
+    <string name="correct_answer">Resposta correta: %1$s</string>
 </resources>
