@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,16 +18,18 @@ public class QuestionActivity extends AppCompatActivity {
 
     protected QuestionActivity activity = this;
 
-    private VideoView mVideoView;
-    private View mOptionsPanel;
-    private View mAnswerPanel;
-
     private Question mCurrentQuestion;
 
+    // Question
+    private TextView mQuestionTxt;
+    private VideoView mVideoView;
+
     // Options
+    private View mOptionsPanel;
     private List<Button> mOptionButtons;
 
     // Answer
+    private View mAnswerPanel;
     private TextView mAnswerMsg;
     private TextView mCorrectAnswerTxt;
 
@@ -46,6 +50,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void initQuestion() {
 
+        mQuestionTxt = (TextView) findViewById(R.id.question_txt);
         mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -63,8 +68,10 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void showQuestion() {
-        int resId = this.getResources().getIdentifier(mCurrentQuestion.getSource(), "raw", getPackageName());
+        mVideoView.stopPlayback();
+        int resId = this.getResources().getIdentifier(mCurrentQuestion.getQuestionRes(), "raw", getPackageName());
         mVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + resId));
+        mQuestionTxt.setText(mCurrentQuestion.getQuestionText());
     }
 
     private void initOptions() {
@@ -80,6 +87,7 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void showOptions() {
+        mQuestionTxt.setVisibility(View.VISIBLE);
         mOptionsPanel.setVisibility(View.VISIBLE);
         mAnswerPanel.setVisibility(View.GONE);
 
@@ -104,6 +112,7 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void showAnswer(int option) {
 
+        mQuestionTxt.setVisibility(View.GONE);
         mOptionsPanel.setVisibility(View.GONE);
         mAnswerPanel.setVisibility(View.VISIBLE);
 

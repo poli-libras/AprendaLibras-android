@@ -1,8 +1,5 @@
 package polilibras.com.br.aprendalibras;
 
-import android.net.Uri;
-
-import java.net.URI;
 import java.util.List;
 
 /**
@@ -10,11 +7,12 @@ import java.util.List;
  */
 public class Question {
 
-    private static final String PACKAGE_NAME = "polilibras.com.br.aprendalibras";
-
     private Long id;
 
-    private String source;
+    private QuestionType type;
+
+    private String questionText;
+    private String questionRes;
 
     private List<String> options;
 
@@ -22,13 +20,6 @@ public class Question {
 
     public Question() {
 
-    }
-
-    public Question(long id, String source, List<String> options, int correctAnswer) {
-        this.id = id;
-        this.source = source;
-        this.options = options;
-        this.correctAnswer = correctAnswer;
     }
 
     public Long getId() {
@@ -39,12 +30,28 @@ public class Question {
         this.id = id;
     }
 
-    public String getSource() {
-        return source;
+    public QuestionType getType() {
+        return type;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setType(QuestionType type) {
+        this.type = type;
+    }
+
+    public String getQuestionText() {
+        return questionText;
+    }
+
+    public void setQuestionText(String questionText) {
+        this.questionText = questionText;
+    }
+
+    public String getQuestionRes() {
+        return questionRes;
+    }
+
+    public void setQuestionRes(String questionRes) {
+        this.questionRes = questionRes;
     }
 
     public List<String> getOptions() {

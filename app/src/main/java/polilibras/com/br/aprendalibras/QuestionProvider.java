@@ -25,7 +25,9 @@ public class QuestionProvider {
     // you will actually use after this query.
     private static final String[] projection = {
             QuestionTable._ID,
-            QuestionTable.COLUMN_NAME_SOURCE,
+            QuestionTable.COLUMN_NAME_TYPE,
+            QuestionTable.COLUMN_NAME_QUESTION_TXT,
+            QuestionTable.COLUMN_NAME_QUESTION_RES,
             QuestionTable.COLUMN_NAME_OPTION0,
             QuestionTable.COLUMN_NAME_OPTION1,
             QuestionTable.COLUMN_NAME_OPTION2,
@@ -59,7 +61,9 @@ public class QuestionProvider {
 
         Question q = new Question();
         q.setId(mCursor.getLong(mCursor.getColumnIndex(QuestionTable._ID)));
-        q.setSource(mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_SOURCE)));
+        q.setType(QuestionType.valueOf(mCursor.getInt(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_TYPE))));
+        q.setQuestionText(mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_QUESTION_TXT)));
+        q.setQuestionRes(mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_QUESTION_RES)));
         String option0 = mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_OPTION0));
         String option1 = mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_OPTION1));
         String option2 = mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_OPTION2));
@@ -75,12 +79,12 @@ public class QuestionProvider {
 
         Cursor c = db.query(
                 QuestionTable.TABLE_NAME,  // The table to query
-                projection,                               // The columns to return
-                null,                                // The columns for the WHERE clause
-                null,                            // The values for the WHERE clause
-                null,                                     // don't group the rows
-                null,                                     // don't filter by row groups
-                QuestionTable._ID + " ASC"                                 // The sort order
+                projection,                // The columns to return
+                null,                      // The columns for the WHERE clause
+                null,                      // The values for the WHERE clause
+                null,                      // don't group the rows
+                null,                      // don't filter by row groups
+                QuestionTable._ID + " ASC" // The sort order
         );
 
         return c;
