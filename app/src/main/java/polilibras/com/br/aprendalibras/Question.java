@@ -1,11 +1,16 @@
 package polilibras.com.br.aprendalibras;
 
+import android.net.Uri;
+
+import java.net.URI;
 import java.util.List;
 
 /**
  * Created by marce on 15/02/2016.
  */
 public class Question {
+
+    private static final String PACKAGE_NAME = "polilibras.com.br.aprendalibras";
 
     private Long id;
 
@@ -15,7 +20,12 @@ public class Question {
 
     private int correctAnswer;
 
-    public Question(String source, List<String> options, int correctAnswer) {
+    public Question() {
+
+    }
+
+    public Question(long id, String source, List<String> options, int correctAnswer) {
+        this.id = id;
         this.source = source;
         this.options = options;
         this.correctAnswer = correctAnswer;

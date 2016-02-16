@@ -1,7 +1,5 @@
 package polilibras.com.br.aprendalibras;
 
-import android.content.Context;
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,7 +34,7 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_activity);
 
-        mCurrentQuestion = QuestionProvider.getInstance().getNextQuestion();
+        mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
 
         initQuestion();
         initOptions();
@@ -65,7 +63,8 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void showQuestion() {
-        mVideoView.setVideoURI(Uri.parse(mCurrentQuestion.getSource()));
+        int resId = this.getResources().getIdentifier(mCurrentQuestion.getSource(), "raw", getPackageName());
+        mVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + resId));
     }
 
     private void initOptions() {
@@ -96,7 +95,7 @@ public class QuestionActivity extends AppCompatActivity {
         findViewById(R.id.answer_next_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mCurrentQuestion = QuestionProvider.getInstance().getNextQuestion();
+                mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
                 showQuestion();
                 showOptions();
             }
