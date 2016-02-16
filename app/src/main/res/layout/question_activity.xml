@@ -26,7 +26,7 @@
     <include layout="@layout/video" />
 
     <!-- Options -->
-    <include android:id="@+id/options_layout" layout="@layout/options_fragment" />
+    <include android:id="@+id/options_layout" layout="@layout/options_texttype_fragment" />
 
     <!-- Resposta -->
     <include android:id="@+id/answer_layout" layout="@layout/answer_fragment" />
