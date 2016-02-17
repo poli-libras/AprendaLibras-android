@@ -8,23 +8,23 @@
 
     <Button
         android:id="@+id/question_option1_btn"
-        style="@style/AppTheme.TextAnswer"
+        style="@style/AppTheme.TextOption"
         android:text="BOLA" />
 
     <Button
         android:id="@+id/question_option2_btn"
-        style="@style/AppTheme.TextAnswer"
+        style="@style/AppTheme.TextOption"
         android:background="@color/colorPrimaryDark"
         android:text="CASA" />
 
     <Button
         android:id="@+id/question_option3_btn"
-        style="@style/AppTheme.TextAnswer"
+        style="@style/AppTheme.TextOption"
         android:text="SAPATO" />
 
     <Button
         android:id="@+id/question_option4_btn"
-        style="@style/AppTheme.TextAnswer"
+        style="@style/AppTheme.TextOption"
         android:background="@color/colorPrimaryDark"
         android:text="CARRO" />
 

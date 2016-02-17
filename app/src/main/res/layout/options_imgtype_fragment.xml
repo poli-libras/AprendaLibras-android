@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:grid="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginBottom="10dp"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/question_option1_btn"
+            style="@style/AppTheme.ImageOption"
+            android:layout_weight="1"
+            android:src="@drawable/futebol" />
+
+        <ImageButton
+            android:id="@+id/question_option2_btn"
+            style="@style/AppTheme.ImageOption"
+            android:layout_weight="1"
+            android:src="@drawable/corrida" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/question_option3_btn"
+            style="@style/AppTheme.ImageOption"
+            android:layout_weight="1"
+            android:src="@drawable/canoagem" />
+
+        <ImageButton
+            android:id="@+id/question_option4_btn"
+            style="@style/AppTheme.ImageOption"
+            android:layout_weight="1"
+            android:src="@drawable/tenis" />
+
+    </LinearLayout>
+
+</LinearLayout>

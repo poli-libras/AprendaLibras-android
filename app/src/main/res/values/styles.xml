@@ -10,7 +10,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.TextAnswer">
+    <style name="AppTheme.TextOption">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:layout_weight">1</item>
@@ -19,6 +19,14 @@
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="AppTheme.ImageOption">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
 </resources>
