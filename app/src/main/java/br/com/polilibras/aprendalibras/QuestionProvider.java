@@ -31,8 +31,7 @@ public class QuestionProvider {
             QuestionTable.COLUMN_NAME_OPTION0,
             QuestionTable.COLUMN_NAME_OPTION1,
             QuestionTable.COLUMN_NAME_OPTION2,
-            QuestionTable.COLUMN_NAME_OPTION3,
-            QuestionTable.COLUMN_NAME_ANSWER
+            QuestionTable.COLUMN_NAME_OPTION3
     };
 
     private QuestionProvider(Context context) {
@@ -69,7 +68,6 @@ public class QuestionProvider {
         String option2 = mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_OPTION2));
         String option3 = mCursor.getString(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_OPTION3));
         q.setOptions(Arrays.asList(option0, option1, option2, option3));
-        q.setCorrectAnswer(mCursor.getInt(mCursor.getColumnIndexOrThrow(QuestionTable.COLUMN_NAME_ANSWER)));
 
         return q;
     }

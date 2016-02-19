@@ -11,6 +11,8 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
@@ -28,6 +30,7 @@ public class QuestionActivity extends AppCompatActivity {
     private View mOptionsImagesPanel;
     private View mOptionsPanel;
     private List<View> mOptionButtons;
+    private int mCurrentCorrectBtnIdx;
 
     // Answer
     private View mAnswerPanel;
@@ -112,14 +115,21 @@ public class QuestionActivity extends AppCompatActivity {
         mQuestionTxt.setVisibility(View.VISIBLE);
         mAnswerPanel.setVisibility(View.GONE);
 
+        List<Integer> indexes = Arrays.asList(0, 1, 2, 3);
+        Collections.shuffle(indexes);
+
         for (int i = 0; i < mOptionButtons.size(); i++) {
             View btn = mOptionButtons.get(i);
-            String option = mCurrentQuestion.getOptions().get(i%4);
+            int shuffledIdx = indexes.get(i%4);
+            String option = mCurrentQuestion.getOptions().get(shuffledIdx);
             if (btn instanceof Button) {
                 ((Button) btn).setText(option.toUpperCase());
             } else {
                 int resId = this.getResources().getIdentifier(option.toLowerCase(), "drawable", getPackageName());
                 ((ImageButton) btn).setImageResource(resId);
+            }
+            if (shuffledIdx % 4 == 0) { // É a resposta correta
+                mCurrentCorrectBtnIdx = i%4;
             }
         }
     }
@@ -143,11 +153,11 @@ public class QuestionActivity extends AppCompatActivity {
         mOptionsPanel.setVisibility(View.GONE);
         mAnswerPanel.setVisibility(View.VISIBLE);
 
-        boolean answerIsCorrect = (mCurrentQuestion.getCorrectAnswer() == option);
+        boolean answerIsCorrect = (mCurrentCorrectBtnIdx == option);
 
         mAnswerMsg.setText(answerIsCorrect ? "PARABÉNS!!!" : "NÃO DEU...");
         mCorrectAnswerTxt.setText(getResources().getString(R.string.correct_answer,
-                mCurrentQuestion.getOptions().get(mCurrentQuestion.getCorrectAnswer())));
+                mCurrentQuestion.getOptions().get(0)));
 
 
     }

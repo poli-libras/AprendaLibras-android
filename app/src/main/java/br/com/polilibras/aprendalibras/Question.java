@@ -14,9 +14,7 @@ public class Question {
     private String questionText;
     private String questionRes;
 
-    private List<String> options;
-
-    private int correctAnswer;
+    private List<String> options; // Option0 é sempre a resposta correta.
 
     public Question() {
 
@@ -60,13 +58,5 @@ public class Question {
 
     public void setOptions(List<String> options) {
         this.options = options;
-    }
-
-    public int getCorrectAnswer() {
-        return correctAnswer;
-    }
-
-    public void setCorrectAnswer(int correctAnswer) {
-        this.correctAnswer = correctAnswer;
     }
 }
