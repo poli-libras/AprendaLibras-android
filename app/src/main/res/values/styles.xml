@@ -23,8 +23,8 @@
 
     <style name="AppTheme.ImageOption">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">5dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_margin">10dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:background">@android:color/transparent</item>
     </style>

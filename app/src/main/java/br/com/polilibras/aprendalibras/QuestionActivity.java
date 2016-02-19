@@ -140,7 +140,6 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void showAnswer(int option) {
 
-        mQuestionTxt.setVisibility(View.GONE);
         mOptionsPanel.setVisibility(View.GONE);
         mAnswerPanel.setVisibility(View.VISIBLE);
 
