@@ -1,4 +1,4 @@
-package polilibras.com.br.aprendalibras;
+package br.com.polilibras.aprendalibras;
 
 import java.util.Arrays;
 import java.util.Collections;

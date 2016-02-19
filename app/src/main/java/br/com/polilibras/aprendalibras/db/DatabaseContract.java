@@ -1,4 +1,4 @@
-package polilibras.com.br.aprendalibras.db;
+package br.com.polilibras.aprendalibras.db;
 
 import android.provider.BaseColumns;
 

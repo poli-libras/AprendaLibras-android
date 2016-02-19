@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.2"
 
     defaultConfig {
-        applicationId "polilibras.com.br.aprendalibras"
+        applicationId "br.com.polilibras.aprendalibras"
         minSdkVersion 17
         targetSdkVersion 23
         versionCode 1

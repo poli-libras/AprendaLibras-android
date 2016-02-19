@@ -1,4 +1,4 @@
-package polilibras.com.br.aprendalibras;
+package br.com.polilibras.aprendalibras;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -6,8 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.Arrays;
 
-import polilibras.com.br.aprendalibras.db.DatabaseContract.QuestionTable;
-import polilibras.com.br.aprendalibras.db.DatabaseHelper;
+import br.com.polilibras.aprendalibras.db.DatabaseContract.QuestionTable;
+import br.com.polilibras.aprendalibras.db.DatabaseHelper;
 
 /**
  * Created by marce on 15/02/2016.

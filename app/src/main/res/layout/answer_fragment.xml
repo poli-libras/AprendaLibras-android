@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center_horizontal"
-    tools:context="polilibras.com.br.aprendalibras.AnswerActivity">
+    tools:context="br.com.polilibras.aprendalibras.AnswerActivity">
 
     <TextView
         android:id="@+id/answer_msg_txt"

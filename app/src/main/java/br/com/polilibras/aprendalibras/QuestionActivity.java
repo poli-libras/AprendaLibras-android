@@ -1,4 +1,4 @@
-package polilibras.com.br.aprendalibras;
+package br.com.polilibras.aprendalibras;
 
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -6,10 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.VideoView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,8 +24,10 @@ public class QuestionActivity extends AppCompatActivity {
     private VideoView mVideoView;
 
     // Options
+    private View mOptionsTextPanel;
+    private View mOptionsImagesPanel;
     private View mOptionsPanel;
-    private List<Button> mOptionButtons;
+    private List<View> mOptionButtons;
 
     // Answer
     private View mAnswerPanel;
@@ -75,24 +76,51 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     private void initOptions() {
-        mOptionsPanel = findViewById(R.id.options_layout);
+        mOptionsTextPanel = findViewById(R.id.options_text_layout);
+        mOptionsTextPanel.setVisibility(View.GONE);
+        mOptionsImagesPanel = findViewById(R.id.options_img_layout);
+        mOptionsImagesPanel.setVisibility(View.GONE);
+        mOptionsPanel = mOptionsTextPanel;
         mOptionButtons = new ArrayList<>(4);
-        mOptionButtons.add((Button) findViewById(R.id.question_option1_btn));
-        mOptionButtons.add((Button) findViewById(R.id.question_option2_btn));
-        mOptionButtons.add((Button) findViewById(R.id.question_option3_btn));
-        mOptionButtons.add((Button) findViewById(R.id.question_option4_btn));
+        mOptionButtons.add( findViewById(R.id.question_option1_btn));
+        mOptionButtons.add( findViewById(R.id.question_option2_btn));
+        mOptionButtons.add( findViewById(R.id.question_option3_btn));
+        mOptionButtons.add( findViewById(R.id.question_option4_btn));
+        mOptionButtons.add(findViewById(R.id.question_option1_img_btn));
+        mOptionButtons.add(findViewById(R.id.question_option2_img_btn));
+        mOptionButtons.add(findViewById(R.id.question_option3_img_btn));
+        mOptionButtons.add(findViewById(R.id.question_option4_img_btn));
         for (int i = 0; i < mOptionButtons.size(); i++) {
-            mOptionButtons.get(i).setOnClickListener(new OptionClickListener(i));
+            mOptionButtons.get(i).setOnClickListener(new OptionClickListener(i%4));
         }
     }
 
     private void showOptions() {
-        mQuestionTxt.setVisibility(View.VISIBLE);
+
+        switch (mCurrentQuestion.getType()) {
+            case IMAGE_OPTIONS:
+                mOptionsPanel = mOptionsImagesPanel;
+                break;
+
+            case TEXT_OPTIONS:
+            default:
+                mOptionsPanel = mOptionsTextPanel;
+                break;
+        }
+
         mOptionsPanel.setVisibility(View.VISIBLE);
+        mQuestionTxt.setVisibility(View.VISIBLE);
         mAnswerPanel.setVisibility(View.GONE);
 
         for (int i = 0; i < mOptionButtons.size(); i++) {
-            mOptionButtons.get(i).setText(mCurrentQuestion.getOptions().get(i).toUpperCase());
+            View btn = mOptionButtons.get(i);
+            String option = mCurrentQuestion.getOptions().get(i%4);
+            if (btn instanceof Button) {
+                ((Button) btn).setText(option.toUpperCase());
+            } else {
+                int resId = this.getResources().getIdentifier(option.toLowerCase(), "drawable", getPackageName());
+                ((ImageButton) btn).setImageResource(resId);
+            }
         }
     }
 

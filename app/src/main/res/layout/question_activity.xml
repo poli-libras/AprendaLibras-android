@@ -9,7 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="polilibras.com.br.aprendalibras.QuestionActivity">
+    tools:context="br.com.polilibras.aprendalibras.QuestionActivity">
 
     <!-- Question -->
     <TextView
@@ -25,8 +25,11 @@
     <!-- Video -->
     <include layout="@layout/video" />
 
-    <!-- Options -->
-    <include android:id="@+id/options_layout" layout="@layout/options_texttype_fragment" />
+    <!-- Options - text -->
+    <include android:id="@+id/options_text_layout" layout="@layout/options_texttype_fragment" />
+
+    <!-- Options - images -->
+    <include android:id="@+id/options_img_layout" layout="@layout/options_imgtype_fragment" />
 
     <!-- Resposta -->
     <include android:id="@+id/answer_layout" layout="@layout/answer_fragment" />

@@ -1,4 +1,4 @@
-package polilibras.com.br.aprendalibras;
+package br.com.polilibras.aprendalibras;
 
 import android.app.Activity;
 import android.content.Intent;
