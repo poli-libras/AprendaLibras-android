@@ -39,6 +39,7 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView mAnswerMsg;
     private TextView mCorrectAnswerTxt;
     private int mNumErrors;
+    private int mPontuacao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
         mNumErrors = 0;
+        mPontuacao = 0;
 
         initQuestion();
         initOptions();
@@ -158,10 +160,17 @@ public class QuestionActivity extends AppCompatActivity {
         mAnswerPanel.setVisibility(View.VISIBLE);
 
         boolean answerIsCorrect = (mCurrentCorrectBtnIdx == option);
+
+        if(answerIsCorrect){
+
+            mPontuacao = mPontuacao + 10;
+        }
+
         if(!answerIsCorrect){
             mNumErrors = mNumErrors + 1;
             if(mNumErrors == 3){
                 Intent intent = new Intent(this,FimDeJogoActivity.class);
+                intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA,mPontuacao);
                 startActivity(intent);
 
             }
