@@ -1,5 +1,6 @@
 package br.com.polilibras.aprendalibras;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 
 public class QuestionActivity extends AppCompatActivity {
 
@@ -36,6 +38,7 @@ public class QuestionActivity extends AppCompatActivity {
     private View mAnswerPanel;
     private TextView mAnswerMsg;
     private TextView mCorrectAnswerTxt;
+    private int mNumErrors;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class QuestionActivity extends AppCompatActivity {
         setContentView(R.layout.question_activity);
 
         mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
+        mNumErrors = 0;
 
         initQuestion();
         initOptions();
@@ -154,6 +158,14 @@ public class QuestionActivity extends AppCompatActivity {
         mAnswerPanel.setVisibility(View.VISIBLE);
 
         boolean answerIsCorrect = (mCurrentCorrectBtnIdx == option);
+        if(!answerIsCorrect){
+            mNumErrors = mNumErrors + 1;
+            if(mNumErrors == 3){
+                Intent intent = new Intent(this,FimDeJogoActivity.class);
+                startActivity(intent);
+
+            }
+        }
 
         mAnswerMsg.setText(answerIsCorrect ? "PARABÉNS!!!" : "NÃO DEU...");
         mCorrectAnswerTxt.setText(getResources().getString(R.string.correct_answer,

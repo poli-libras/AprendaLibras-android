@@ -23,6 +23,7 @@
         <activity
             android:name=".QuestionActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".FimDeJogoActivity"></activity>
     </application>
 
 </manifest>
