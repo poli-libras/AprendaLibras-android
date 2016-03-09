@@ -41,6 +41,7 @@ public class QuestionActivity extends AppCompatActivity {
     private int mNumErrors;
     private int mPontuacao;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,9 +171,8 @@ public class QuestionActivity extends AppCompatActivity {
             mNumErrors = mNumErrors + 1;
             if(mNumErrors == 3){
                 Intent intent = new Intent(this,FimDeJogoActivity.class);
-                intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA,mPontuacao);
+                intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
                 startActivity(intent);
-
             }
         }
 
@@ -197,6 +197,7 @@ public class QuestionActivity extends AppCompatActivity {
             showAnswer(mOption);
         }
     }
+
 
 
     @Override

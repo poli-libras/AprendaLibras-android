@@ -3,6 +3,7 @@ package br.com.polilibras.aprendalibras;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -17,7 +18,14 @@ public class FimDeJogoActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int pontuacao = intent.getIntExtra(PONTUACAO_EXTRA,-1);
         TextView textView = (TextView) findViewById(R.id.fim_jogo_pontuacao_txt);
-        textView.setText(getString(R.string.pontuacao_txt, pontuacao));
+        textView.setText(getString(R.string.pontuacao_txt, pontuacao));}
 
+    public void sendMessage1(View view){
+        Intent intent = new Intent(this,QuestionActivity.class);
+        startActivity(intent);
+    }
+    public void sendMessage2(View view){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }
