@@ -27,4 +27,13 @@
         android:scaleType="fitCenter"
         android:src="@drawable/play"
         android:background="@android:color/transparent"/>
+
+    <ImageButton
+        android:id="@+id/config_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_settings_black_48dp"
+        android:background="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:onClick="config_button"/>
 </RelativeLayout>
