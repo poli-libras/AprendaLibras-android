@@ -24,7 +24,6 @@ public class QuestionActivity extends AppCompatActivity {
     private Question mCurrentQuestion;
 
     // Question
-    private TextView mQuestionTxt;
     private VideoView mVideoView;
 
     // Options
@@ -63,7 +62,6 @@ public class QuestionActivity extends AppCompatActivity {
 
     private void initQuestion() {
 
-        mQuestionTxt = (TextView) findViewById(R.id.question_txt);
         mVideoView = (VideoView) findViewById(R.id.video_view);
         mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
@@ -84,7 +82,6 @@ public class QuestionActivity extends AppCompatActivity {
         mVideoView.stopPlayback();
         int resId = this.getResources().getIdentifier(mCurrentQuestion.getQuestionRes(), "raw", getPackageName());
         mVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + resId));
-        mQuestionTxt.setText(mCurrentQuestion.getQuestionText());
     }
 
     private void initOptions() {
@@ -121,7 +118,6 @@ public class QuestionActivity extends AppCompatActivity {
         }
 
         mOptionsPanel.setVisibility(View.VISIBLE);
-        mQuestionTxt.setVisibility(View.VISIBLE);
         mAnswerPanel.setVisibility(View.GONE);
 
         List<Integer> indexes = Arrays.asList(0, 1, 2, 3);
@@ -147,7 +143,10 @@ public class QuestionActivity extends AppCompatActivity {
         mAnswerPanel = findViewById(R.id.answer_layout);
         mAnswerMsg = (TextView) findViewById(R.id.answer_msg_txt);
         mCorrectAnswerTxt = (TextView) findViewById(R.id.answer_correct_txt);
+        mFimDeJogoBtn = (Button) findViewById(R.id.fim_de_jogo_btn);
         mProximaPerguntaBtn = (Button) findViewById(R.id.answer_next_btn);
+        mProximaPerguntaBtn.setVisibility(View.VISIBLE);
+        mFimDeJogoBtn.setVisibility(View.GONE);
         mProximaPerguntaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
