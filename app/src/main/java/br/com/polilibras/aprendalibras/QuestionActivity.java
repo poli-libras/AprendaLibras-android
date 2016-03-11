@@ -33,6 +33,8 @@ public class QuestionActivity extends AppCompatActivity {
     private View mOptionsPanel;
     private List<View> mOptionButtons;
     private int mCurrentCorrectBtnIdx;
+    private Button mProximaPerguntaBtn;
+    private Button mFimDeJogoBtn;
 
     // Answer
     private View mAnswerPanel;
@@ -145,7 +147,8 @@ public class QuestionActivity extends AppCompatActivity {
         mAnswerPanel = findViewById(R.id.answer_layout);
         mAnswerMsg = (TextView) findViewById(R.id.answer_msg_txt);
         mCorrectAnswerTxt = (TextView) findViewById(R.id.answer_correct_txt);
-        findViewById(R.id.answer_next_btn).setOnClickListener(new View.OnClickListener() {
+        mProximaPerguntaBtn = (Button) findViewById(R.id.answer_next_btn);
+        mProximaPerguntaBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
@@ -160,7 +163,7 @@ public class QuestionActivity extends AppCompatActivity {
         mOptionsPanel.setVisibility(View.GONE);
         mAnswerPanel.setVisibility(View.VISIBLE);
 
-        boolean answerIsCorrect = (mCurrentCorrectBtnIdx == option);
+        final boolean answerIsCorrect = (mCurrentCorrectBtnIdx == option);
 
         if(answerIsCorrect){
 
@@ -170,9 +173,23 @@ public class QuestionActivity extends AppCompatActivity {
         if(!answerIsCorrect){
             mNumErrors = mNumErrors + 1;
             if(mNumErrors == 3){
-                Intent intent = new Intent(this,FimDeJogoActivity.class);
-                intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
-                startActivity(intent);
+
+                mAnswerPanel = findViewById(R.id.answer_layout);
+                mAnswerMsg = (TextView) findViewById(R.id.answer_msg_txt);
+                mCorrectAnswerTxt = (TextView) findViewById(R.id.answer_correct_txt);
+                mFimDeJogoBtn = (Button) findViewById(R.id.fim_de_jogo_btn);
+                mProximaPerguntaBtn.setVisibility(View.GONE);
+                mFimDeJogoBtn.setVisibility(View.VISIBLE);
+                mFimDeJogoBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
+                        intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
+                        startActivity(intent);
+                    }
+                });
+
             }
         }
 
