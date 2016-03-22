@@ -30,7 +30,8 @@ public class QuestionActivity extends AppCompatActivity {
     private View mOptionsTextPanel;
     private View mOptionsImagesPanel;
     private View mOptionsPanel;
-    private List<View> mOptionButtons;
+    private List<Button> mOptionButtons;
+    private List<ImageButton> mOptionImageButtons;
     private int mCurrentCorrectBtnIdx;
     private Button mProximaPerguntaBtn;
     private Button mFimDeJogoBtn;
@@ -91,52 +92,71 @@ public class QuestionActivity extends AppCompatActivity {
         mOptionsImagesPanel.setVisibility(View.GONE);
         mOptionsPanel = mOptionsTextPanel;
         mOptionButtons = new ArrayList<>(4);
-        mOptionButtons.add( findViewById(R.id.question_option1_btn));
-        mOptionButtons.add( findViewById(R.id.question_option2_btn));
-        mOptionButtons.add( findViewById(R.id.question_option3_btn));
-        mOptionButtons.add( findViewById(R.id.question_option4_btn));
-        mOptionButtons.add(findViewById(R.id.question_option1_img_btn));
-        mOptionButtons.add(findViewById(R.id.question_option2_img_btn));
-        mOptionButtons.add(findViewById(R.id.question_option3_img_btn));
-        mOptionButtons.add(findViewById(R.id.question_option4_img_btn));
+        mOptionButtons.add((Button) findViewById(R.id.question_option1_btn));
+        mOptionButtons.add((Button) findViewById(R.id.question_option2_btn));
+        mOptionButtons.add((Button) findViewById(R.id.question_option3_btn));
+        mOptionButtons.add((Button) findViewById(R.id.question_option4_btn));
+        mOptionImageButtons = new ArrayList<>(4);
+        mOptionImageButtons.add((ImageButton) findViewById(R.id.question_option1_img_btn));
+        mOptionImageButtons.add((ImageButton) findViewById(R.id.question_option2_img_btn));
+        mOptionImageButtons.add((ImageButton) findViewById(R.id.question_option3_img_btn));
+        mOptionImageButtons.add((ImageButton) findViewById(R.id.question_option4_img_btn));
         for (int i = 0; i < mOptionButtons.size(); i++) {
-            mOptionButtons.get(i).setOnClickListener(new OptionClickListener(i%4));
+            mOptionButtons.get(i).setOnClickListener(new OptionClickListener(i));
+        }
+        for (int i = 0; i < mOptionImageButtons.size(); i++) {
+            mOptionImageButtons.get(i).setOnClickListener(new OptionClickListener(i));
         }
     }
 
     private void showOptions() {
 
+        List<Integer> indexes = Arrays.asList(0, 1, 2, 3);
+        Collections.shuffle(indexes);
+        mAnswerPanel.setVisibility(View.GONE);
+
         switch (mCurrentQuestion.getType()) {
             case IMAGE_OPTIONS:
                 mOptionsPanel = mOptionsImagesPanel;
+                mOptionsPanel.setVisibility(View.VISIBLE);
+
+
+
+                for (int i = 0; i < mOptionImageButtons.size(); i++) {
+                    ImageButton btn = mOptionImageButtons.get(i);
+                    int shuffledIdx = indexes.get(i%4);
+                    String option = mCurrentQuestion.getOptions().get(shuffledIdx);
+                    int resId = this.getResources().getIdentifier(option.toLowerCase(), "drawable", getPackageName());
+                    btn.setImageResource(resId);
+
+                    if (shuffledIdx % 4 == 0) { // É a resposta correta
+                        mCurrentCorrectBtnIdx = i%4;
+                    }
+                }
+
+
                 break;
 
             case TEXT_OPTIONS:
             default:
                 mOptionsPanel = mOptionsTextPanel;
+                mOptionsPanel.setVisibility(View.VISIBLE);
+
+
+                for (int i = 0; i < mOptionButtons.size(); i++) {
+                    Button btn = mOptionButtons.get(i);
+                    int shuffledIdx = indexes.get(i%4);
+                    String option = mCurrentQuestion.getOptions().get(shuffledIdx);
+                    btn.setText(option.toUpperCase());
+
+                    if (shuffledIdx % 4 == 0) { // É a resposta correta
+                        mCurrentCorrectBtnIdx = i%4;
+                    }
+                }
                 break;
         }
 
-        mOptionsPanel.setVisibility(View.VISIBLE);
-        mAnswerPanel.setVisibility(View.GONE);
 
-        List<Integer> indexes = Arrays.asList(0, 1, 2, 3);
-        Collections.shuffle(indexes);
-
-        for (int i = 0; i < mOptionButtons.size(); i++) {
-            View btn = mOptionButtons.get(i);
-            int shuffledIdx = indexes.get(i%4);
-            String option = mCurrentQuestion.getOptions().get(shuffledIdx);
-            if (btn instanceof Button) {
-                ((Button) btn).setText(option.toUpperCase());
-            } else {
-                int resId = this.getResources().getIdentifier(option.toLowerCase(), "drawable", getPackageName());
-                ((ImageButton) btn).setImageResource(resId);
-            }
-            if (shuffledIdx % 4 == 0) { // É a resposta correta
-                mCurrentCorrectBtnIdx = i%4;
-            }
-        }
     }
 
     private void initAnswer() {
