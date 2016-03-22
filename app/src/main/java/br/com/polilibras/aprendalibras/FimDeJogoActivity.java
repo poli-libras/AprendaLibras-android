@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 public class FimDeJogoActivity extends AppCompatActivity {
 
+    public final static String GANHOU = "GANHOU";
     public final static String PONTUACAO_EXTRA = "PONTUACAO";
 
     @Override
@@ -16,7 +17,15 @@ public class FimDeJogoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fim_de_jogo);
         Intent intent = getIntent();
-        int pontuacao = intent.getIntExtra(PONTUACAO_EXTRA,-1);
+        int pontuacao = intent.getIntExtra(PONTUACAO_EXTRA, -1);
+        boolean ganhar = intent.getBooleanExtra(GANHOU, false);
+        TextView text = (TextView) findViewById(R.id.fim_jogo_mensagem_txt);
+        if (ganhar == true) {
+            text.setText(getString(R.string.fim_jogo_ganhador_txt));
+        }
+        else{
+            text.setText(getString(R.string.fim_jogo_perdedor));
+        }
         TextView textView = (TextView) findViewById(R.id.fim_jogo_pontuacao_txt);
         textView.setText(getString(R.string.pontuacao_txt, pontuacao));}
 

@@ -72,6 +72,18 @@ public class QuestionProvider {
         return q;
     }
 
+    public boolean isLastQuestion() {
+        if (mCursor == null) {
+            mCursor = selectAllQuestions();
+        }
+        if (!mCursor.isLast()){
+            return false;
+        } else {
+            return true;
+        }
+
+    }
+
     private Cursor selectAllQuestions() {
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
 

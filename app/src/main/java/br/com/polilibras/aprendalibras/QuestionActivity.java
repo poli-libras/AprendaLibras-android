@@ -187,9 +187,27 @@ public class QuestionActivity extends AppCompatActivity {
         if(answerIsCorrect){
 
             mPontuacao = mPontuacao + 10;
+            if(QuestionProvider.getInstance(this).isLastQuestion() == true){
+                mAnswerPanel = findViewById(R.id.answer_layout);
+                mAnswerMsg = (TextView) findViewById(R.id.answer_msg_txt);
+                mCorrectAnswerTxt = (TextView) findViewById(R.id.answer_correct_txt);
+                mFimDeJogoBtn = (Button) findViewById(R.id.fim_de_jogo_btn);
+                mProximaPerguntaBtn.setVisibility(View.GONE);
+                mFimDeJogoBtn.setVisibility(View.VISIBLE);
+                mFimDeJogoBtn.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
+                        intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
+                        intent.putExtra(FimDeJogoActivity.GANHOU, true);
+                        startActivity(intent);
+                    }
+                });
+            }
         }
 
-        if(!answerIsCorrect){
+        else {
             mNumErrors = mNumErrors + 1;
             if(mNumErrors == 3){
 
@@ -205,6 +223,7 @@ public class QuestionActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
                         intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
+                        intent.putExtra(FimDeJogoActivity.GANHOU, false);
                         startActivity(intent);
                     }
                 });
