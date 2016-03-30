@@ -19,6 +19,8 @@ import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
 
+    public  static final int MAX_ERRORS = 1;
+
     protected QuestionActivity activity = this;
 
     private Question mCurrentQuestion;
@@ -41,7 +43,7 @@ public class QuestionActivity extends AppCompatActivity {
     private TextView mAnswerMsg;
     private TextView mCorrectAnswerTxt;
     private int mNumErrors;
-    private int mPontuacao;
+    private int mNumAcertos;
 
 
     @Override
@@ -51,7 +53,7 @@ public class QuestionActivity extends AppCompatActivity {
 
         mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
         mNumErrors = 0;
-        mPontuacao = 0;
+        mNumAcertos = 0;
 
         initQuestion();
         initOptions();
@@ -186,12 +188,8 @@ public class QuestionActivity extends AppCompatActivity {
 
         if(answerIsCorrect){
 
-            mPontuacao = mPontuacao + 10;
-            if(QuestionProvider.getInstance(this).isLastQuestion() == true){
-                mAnswerPanel = findViewById(R.id.answer_layout);
-                mAnswerMsg = (TextView) findViewById(R.id.answer_msg_txt);
-                mCorrectAnswerTxt = (TextView) findViewById(R.id.answer_correct_txt);
-                mFimDeJogoBtn = (Button) findViewById(R.id.fim_de_jogo_btn);
+            mNumAcertos = mNumAcertos + 1;
+            if(QuestionProvider.getInstance(this).isLastQuestion()){
                 mProximaPerguntaBtn.setVisibility(View.GONE);
                 mFimDeJogoBtn.setVisibility(View.VISIBLE);
                 mFimDeJogoBtn.setOnClickListener(new View.OnClickListener() {
@@ -199,22 +197,16 @@ public class QuestionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
-                        intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
-                        intent.putExtra(FimDeJogoActivity.GANHOU, true);
+                        intent.putExtra(FimDeJogoActivity.EXTRA_ACERTOS, mNumAcertos);
+                        intent.putExtra(FimDeJogoActivity.GANHOU_EXTRA, true);
                         startActivity(intent);
+                        finish();
                     }
                 });
             }
-        }
-
-        else {
+        } else {
             mNumErrors = mNumErrors + 1;
-            if(mNumErrors == 3){
-
-                mAnswerPanel = findViewById(R.id.answer_layout);
-                mAnswerMsg = (TextView) findViewById(R.id.answer_msg_txt);
-                mCorrectAnswerTxt = (TextView) findViewById(R.id.answer_correct_txt);
-                mFimDeJogoBtn = (Button) findViewById(R.id.fim_de_jogo_btn);
+            if(mNumErrors == MAX_ERRORS){
                 mProximaPerguntaBtn.setVisibility(View.GONE);
                 mFimDeJogoBtn.setVisibility(View.VISIBLE);
                 mFimDeJogoBtn.setOnClickListener(new View.OnClickListener() {
@@ -222,9 +214,10 @@ public class QuestionActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
-                        intent.putExtra(FimDeJogoActivity.PONTUACAO_EXTRA, mPontuacao);
-                        intent.putExtra(FimDeJogoActivity.GANHOU, false);
+                        intent.putExtra(FimDeJogoActivity.EXTRA_ACERTOS, mNumAcertos);
+                        intent.putExtra(FimDeJogoActivity.GANHOU_EXTRA, false);
                         startActivity(intent);
+                        finish();
                     }
                 });
 

@@ -4,7 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import br.com.polilibras.aprendalibras.db.DatabaseContract.QuestionTable;
 import br.com.polilibras.aprendalibras.db.DatabaseHelper;
@@ -20,6 +23,9 @@ public class QuestionProvider {
     private DatabaseHelper mDbHelper;
 
     private Cursor mCursor;
+
+    private List<Integer> mQuestionsOrder;
+    private int mQuestionIdx;
 
     // Define a projection that specifies which columns from the database
     // you will actually use after this query.
@@ -37,6 +43,7 @@ public class QuestionProvider {
     private QuestionProvider(Context context) {
         mCtx = context;
         mDbHelper = new DatabaseHelper(context);
+        mQuestionsOrder = new ArrayList<>();
     }
 
     public static QuestionProvider getInstance(Context context) {
@@ -52,10 +59,13 @@ public class QuestionProvider {
         if (mCursor == null) {
             mCursor = selectAllQuestions();
         }
-        if (!mCursor.isLast()){
-            mCursor.moveToNext();
+
+        mCursor.moveToPosition(mQuestionsOrder.get(mQuestionIdx));
+
+        if (!isLastQuestion()){
+            mQuestionIdx++;
         } else {
-            mCursor.moveToFirst();
+            mQuestionIdx = 0;
         }
 
         Question q = new Question();
@@ -73,15 +83,7 @@ public class QuestionProvider {
     }
 
     public boolean isLastQuestion() {
-        if (mCursor == null) {
-            mCursor = selectAllQuestions();
-        }
-        if (!mCursor.isLast()){
-            return false;
-        } else {
-            return true;
-        }
-
+        return (mQuestionIdx >= mQuestionsOrder.size() - 1);
     }
 
     private Cursor selectAllQuestions() {
@@ -97,7 +99,14 @@ public class QuestionProvider {
                 QuestionTable._ID + " ASC" // The sort order
         );
 
+        // Cria ordem aleatória para as questões
+        mQuestionsOrder.clear();
+        mQuestionIdx = 0;
+        for (int i = 0; i < c.getCount(); i++) {
+            mQuestionsOrder.add(i);
+        }
+        Collections.shuffle(mQuestionsOrder);
+
         return c;
     }
-
 }
