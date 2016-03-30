@@ -51,7 +51,9 @@ public class QuestionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.question_activity);
 
-        mCurrentQuestion = QuestionProvider.getInstance(activity).getNextQuestion();
+        QuestionProvider questionProvider = QuestionProvider.getInstance(activity);
+        questionProvider.reset();
+        mCurrentQuestion = questionProvider.getNextQuestion();
         mNumErrors = 0;
         mNumAcertos = 0;
 

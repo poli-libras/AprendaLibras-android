@@ -53,11 +53,23 @@ public class QuestionProvider {
         return instance;
     }
 
+    public void reset() {
+        mCursor = selectAllQuestions();
+
+        // Cria ordem aleatória para as questões
+        mQuestionsOrder.clear();
+        mQuestionIdx = 0;
+        for (int i = 0; i < mCursor.getCount(); i++) {
+            mQuestionsOrder.add(i);
+        }
+        Collections.shuffle(mQuestionsOrder);
+    }
+
 
     public Question getNextQuestion() {
 
         if (mCursor == null) {
-            mCursor = selectAllQuestions();
+            reset();
         }
 
         mCursor.moveToPosition(mQuestionsOrder.get(mQuestionIdx));
@@ -98,14 +110,6 @@ public class QuestionProvider {
                 null,                      // don't filter by row groups
                 QuestionTable._ID + " ASC" // The sort order
         );
-
-        // Cria ordem aleatória para as questões
-        mQuestionsOrder.clear();
-        mQuestionIdx = 0;
-        for (int i = 0; i < c.getCount(); i++) {
-            mQuestionsOrder.add(i);
-        }
-        Collections.shuffle(mQuestionsOrder);
 
         return c;
     }
