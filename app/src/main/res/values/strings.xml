@@ -9,4 +9,5 @@
     <string name="facebook_app_id">800845223383093</string>
     <string name="name_txt">Conectado como: %1$s</string>
     <string name="fim_jogo_ganhador_txt">Parabéns! Você ganhou!</string>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>
