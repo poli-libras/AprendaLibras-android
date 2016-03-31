@@ -95,7 +95,7 @@ public class QuestionProvider {
     }
 
     public boolean isLastQuestion() {
-        return (mQuestionIdx >= mQuestionsOrder.size() - 1);
+        return (mQuestionIdx >= mQuestionsOrder.size());
     }
 
     private Cursor selectAllQuestions() {
