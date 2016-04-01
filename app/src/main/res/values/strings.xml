@@ -10,4 +10,5 @@
     <string name="name_txt">Conectado como: %1$s</string>
     <string name="fim_jogo_ganhador_txt">Parabéns! Você ganhou!</string>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="high_score_txt">O recorde é de %1$d pontos</string>
 </resources>
