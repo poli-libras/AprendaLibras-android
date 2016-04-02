@@ -200,7 +200,7 @@ public class QuestionActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
                         intent.putExtra(FimDeJogoActivity.EXTRA_ACERTOS, mNumAcertos);
-                        intent.putExtra(FimDeJogoActivity.GANHOU_EXTRA, true);
+                        intent.putExtra(FimDeJogoActivity.EXTRA_GANHOU, true);
                         startActivity(intent);
                         finish();
                     }
@@ -217,7 +217,7 @@ public class QuestionActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         Intent intent = new Intent(QuestionActivity.this, FimDeJogoActivity.class);
                         intent.putExtra(FimDeJogoActivity.EXTRA_ACERTOS, mNumAcertos);
-                        intent.putExtra(FimDeJogoActivity.GANHOU_EXTRA, false);
+                        intent.putExtra(FimDeJogoActivity.EXTRA_GANHOU, false);
                         startActivity(intent);
                         finish();
                     }

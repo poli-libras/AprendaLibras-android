@@ -8,7 +8,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="br.com.polilibras.aprendalibras.MainActivity"
-    android:background="#FFDFAF">
+    android:background="@color/backgroundHome">
 
     <ImageView
         android:layout_width="200dp"

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="orangeMain">#E85224</color>
+    <color name="orangeLight">#FAB087</color>
+    <color name="orangeDark">#C74727</color>
+    <color name="orangeBackground">#f05323</color>
     <color name="colorPrimary">#EC6923</color>
     <color name="colorPrimaryDark">#C74727</color>
-    <color name="colorPrimaryLight">#FF9953</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="backgroundHome">#FFDFAF</color>
     <color name="lightGray">#AAAAAA</color>
 
 </resources>

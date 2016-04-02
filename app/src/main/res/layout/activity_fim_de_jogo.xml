@@ -19,12 +19,12 @@
             android:id="@+id/fim_jogo_mensagem_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:text="@string/fim_jogo_perdedor"
             android:textAllCaps="true"
             android:textColor="@color/colorPrimary"
             android:textSize="36sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textAlignment="center"/>
 
         <ImageView
             android:layout_width="match_parent"
@@ -37,16 +37,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@string/pontuacao_txt"
+            android:text="@string/pontuacao"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/recorde_txt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="O recorde é de %1$d pontos"
-            android:textSize="24sp"/>
+            android:layout_marginTop="10dp"
+            android:text="@string/high_score"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -64,7 +64,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:onClick="sendMessage1"
+            android:onClick="restartGame"
             android:src="@drawable/ic_replay_white_48dp" />
 
 
@@ -74,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:onClick="sendMessage2"
+            android:onClick="goToHome"
             android:src="@drawable/ic_home_white_48dp" />
 
     </LinearLayout>

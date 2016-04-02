@@ -112,7 +112,7 @@ public class ConfigActivity extends AppCompatActivity {
                         try {
                             String name = object.getString("name");
                             textView.setVisibility(View.VISIBLE);
-                            textView.setText(getString(R.string.name_txt, name));
+                            textView.setText(getString(R.string.name, name));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

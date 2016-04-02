@@ -31,17 +31,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="PRÓXIMA PERGUNTA >"
+        android:background="@color/orangeBackground"
         android:textColor="@android:color/white"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:textAllCaps="true"
+        android:text="@string/next_question"/>
 
     <Button
         android:id="@+id/fim_de_jogo_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:text="CONTINUAR >"
+        android:background="@color/orangeBackground"
         android:textColor="@android:color/white"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        android:textAllCaps="true"
+        android:text="@string/continuar"/>
 
 </LinearLayout>

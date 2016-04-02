@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 public class FimDeJogoActivity extends AppCompatActivity {
 
-    public final static String GANHOU_EXTRA = "GANHOU";
-    public final static String EXTRA_ACERTOS = "ACERTOS";
-    int newHighScore;
+    public final static String EXTRA_GANHOU = "EXTRA_GANHOU";
+    public final static String EXTRA_ACERTOS = "EXTRA_ACERTOS";
+    public final static String PREFS_RECORDE = "PREFS_RECORDE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,38 +21,42 @@ public class FimDeJogoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_fim_de_jogo);
         Intent intent = getIntent();
         int pontuacao = 10 * intent.getIntExtra(EXTRA_ACERTOS, -1);
-        boolean ganhar = intent.getBooleanExtra(GANHOU_EXTRA, false);
-        TextView text = (TextView) findViewById(R.id.fim_jogo_mensagem_txt);
-        if (ganhar == true) {
-            text.setText(getString(R.string.fim_jogo_ganhador_txt));
+        boolean ganhar = intent.getBooleanExtra(EXTRA_GANHOU, false);
+        TextView fimJogoTxt = (TextView) findViewById(R.id.fim_jogo_mensagem_txt);
+        if (ganhar) {
+            fimJogoTxt.setText(getString(R.string.fim_jogo_ganhador));
         } else {
-            text.setText(getString(R.string.fim_jogo_perdedor));
+            fimJogoTxt.setText(getString(R.string.fim_jogo_perdedor));
         }
-        TextView textView = (TextView) findViewById(R.id.fim_jogo_pontuacao_txt);
-        textView.setText(getString(R.string.pontuacao_txt, pontuacao));
+        TextView pontuacaoTxt = (TextView) findViewById(R.id.fim_jogo_pontuacao_txt);
+        pontuacaoTxt.setText(getString(R.string.pontuacao, pontuacao));
 
+
+        // Recorde
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-        newHighScore = sharedPref.getInt("pontuacao", 0);
+        int highScore = sharedPref.getInt(PREFS_RECORDE, 0);
+        TextView recordeTxt = (TextView) findViewById(R.id.recorde_txt);
 
-        if (newHighScore > pontuacao) {
-            TextView textView2 = (TextView) findViewById(R.id.recorde_txt);
-            textView2.setText(getString(R.string.high_score_txt, newHighScore));
+        if (pontuacao <= highScore) {
+            recordeTxt.setText(getString(R.string.high_score, highScore));
         } else {
-            newHighScore = pontuacao;
-            TextView textView2 = (TextView) findViewById(R.id.recorde_txt);
-            textView2.setText(getString(R.string.high_score_txt, newHighScore));
-            sharedPref.edit().putInt("pontuacao", newHighScore).apply();
+            highScore = pontuacao;
+            recordeTxt.setText(getString(R.string.new_high_score, highScore));
+            recordeTxt.setAllCaps(true);
+            recordeTxt.setTextColor(getResources().getColor(R.color.colorPrimary));
+            sharedPref.edit().putInt(PREFS_RECORDE, highScore).apply();
         }
 
     }
 
-
-    public void sendMessage1(View view){
+    public void restartGame(View view){
         Intent intent = new Intent(this,QuestionActivity.class);
         startActivity(intent);
+        finish();
     }
-    public void sendMessage2(View view){
+    public void goToHome(View view){
         Intent intent = new Intent(this,MainActivity.class);
         startActivity(intent);
+        finish();
     }
 }

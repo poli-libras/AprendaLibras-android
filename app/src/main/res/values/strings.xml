@@ -1,14 +1,18 @@
 <resources>
     <string name="app_name">AprendaLibras</string>
-    <string name="correct_answer">Resposta correta: %1$s</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="fim_jogo_perdedor">Fim de jogo!</string>
-    <string name="pontuacao_txt">Você fez %1$d pontos</string>
     <string name="facebook_app_id">800845223383093</string>
-    <string name="name_txt">Conectado como: %1$s</string>
-    <string name="fim_jogo_ganhador_txt">Parabéns! Você ganhou!</string>
-    <string name="title_activity_main2">Main2Activity</string>
-    <string name="high_score_txt">O recorde é de %1$d pontos</string>
+
+    <string name="name">Conectado como: %1$s</string>
+
+    <!-- Resposta -->
+    <string name="correct_answer">Resposta correta: %1$s</string>
+    <string name="next_question">PRÓXIMA PERGUNTA</string>
+    <string name="continuar">CONTINUAR</string>
+
+    <!-- Fim de jogo -->
+    <string name="fim_jogo_perdedor">Fim de jogo!</string>
+    <string name="pontuacao">Você fez %1$d pontos</string>
+    <string name="fim_jogo_ganhador">Parabéns!\nVocê ganhou!</string>
+    <string name="high_score">Recorde:  %1$d</string>
+    <string name="new_high_score">Novo recorde!</string>
 </resources>
