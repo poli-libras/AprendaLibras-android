@@ -11,6 +11,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.games.Games;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +22,7 @@ import java.util.List;
 
 public class QuestionActivity extends AppCompatActivity {
 
-    public  static final int MAX_ERRORS = 1;
+    public static final int MAX_ERRORS = 1;
 
     protected QuestionActivity activity = this;
 
@@ -45,6 +48,8 @@ public class QuestionActivity extends AppCompatActivity {
     private int mNumErrors;
     private int mNumAcertos;
 
+    private GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,12 @@ public class QuestionActivity extends AppCompatActivity {
 
         showQuestion();
         showOptions();
+
+
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Games.API).addScope(Games.SCOPE_GAMES)
+                        // add other APIs and scopes here as needed
+                .build();
     }
 
     private void initQuestion() {
@@ -125,16 +136,15 @@ public class QuestionActivity extends AppCompatActivity {
                 mOptionsPanel.setVisibility(View.VISIBLE);
 
 
-
                 for (int i = 0; i < mOptionImageButtons.size(); i++) {
                     ImageButton btn = mOptionImageButtons.get(i);
-                    int shuffledIdx = indexes.get(i%4);
+                    int shuffledIdx = indexes.get(i % 4);
                     String option = mCurrentQuestion.getOptions().get(shuffledIdx);
                     int resId = this.getResources().getIdentifier(option.toLowerCase(), "drawable", getPackageName());
                     btn.setImageResource(resId);
 
                     if (shuffledIdx % 4 == 0) { // É a resposta correta
-                        mCurrentCorrectBtnIdx = i%4;
+                        mCurrentCorrectBtnIdx = i % 4;
                     }
                 }
 
@@ -149,12 +159,12 @@ public class QuestionActivity extends AppCompatActivity {
 
                 for (int i = 0; i < mOptionButtons.size(); i++) {
                     Button btn = mOptionButtons.get(i);
-                    int shuffledIdx = indexes.get(i%4);
+                    int shuffledIdx = indexes.get(i % 4);
                     String option = mCurrentQuestion.getOptions().get(shuffledIdx);
                     btn.setText(option.toUpperCase());
 
                     if (shuffledIdx % 4 == 0) { // É a resposta correta
-                        mCurrentCorrectBtnIdx = i%4;
+                        mCurrentCorrectBtnIdx = i % 4;
                     }
                 }
                 break;
@@ -188,10 +198,25 @@ public class QuestionActivity extends AppCompatActivity {
 
         final boolean answerIsCorrect = (mCurrentCorrectBtnIdx == option);
 
-        if(answerIsCorrect){
+        if (answerIsCorrect) {
 
             mNumAcertos = mNumAcertos + 1;
-            if(QuestionProvider.getInstance(this).isLastQuestion()){
+            mGoogleApiClient.connect();
+
+            if (mGoogleApiClient != null && mGoogleApiClient.isConnected()) {
+                if (mNumAcertos == 1) {
+                    Games.Achievements.unlock(mGoogleApiClient, "CgkIoKbxmu8IEAIQAQ");
+                } else if (mNumAcertos == 5) {
+                    Games.Achievements.unlock(mGoogleApiClient, "CgkIoKbxmu8IEAIQAg");
+                } else if (mNumAcertos == 10) {
+                    Games.Achievements.unlock(mGoogleApiClient, "CgkIoKbxmu8IEAIQAw");
+                } else if (mNumAcertos == 15) {
+                    Games.Achievements.unlock(mGoogleApiClient, "CgkIoKbxmu8IEAIQBA");
+                } else if (mNumAcertos == 19) {
+                    Games.Achievements.unlock(mGoogleApiClient, "CgkIoKbxmu8IEAIQBQ");
+                }
+            }
+            if (QuestionProvider.getInstance(this).isLastQuestion()) {
                 mProximaPerguntaBtn.setVisibility(View.GONE);
                 mFimDeJogoBtn.setVisibility(View.VISIBLE);
                 mFimDeJogoBtn.setOnClickListener(new View.OnClickListener() {
@@ -208,7 +233,7 @@ public class QuestionActivity extends AppCompatActivity {
             }
         } else {
             mNumErrors = mNumErrors + 1;
-            if(mNumErrors == MAX_ERRORS){
+            if (mNumErrors == MAX_ERRORS) {
                 mProximaPerguntaBtn.setVisibility(View.GONE);
                 mFimDeJogoBtn.setVisibility(View.VISIBLE);
                 mFimDeJogoBtn.setOnClickListener(new View.OnClickListener() {
@@ -247,7 +272,6 @@ public class QuestionActivity extends AppCompatActivity {
             showAnswer(mOption);
         }
     }
-
 
 
     @Override

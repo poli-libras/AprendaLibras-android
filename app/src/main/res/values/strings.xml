@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">AprendaLibras</string>
     <string name="facebook_app_id">800845223383093</string>
-
+    <string name="google_play_app_id">304730624800</string>
     <string name="name">Conectado como: %1$s</string>
 
     <!-- Resposta -->
@@ -15,4 +15,5 @@
     <string name="fim_jogo_ganhador">Parabéns!\nVocê ganhou!</string>
     <string name="high_score">Recorde:  %1$d</string>
     <string name="new_high_score">Novo recorde!</string>
+    <string name="signin_other_error">Erro! Não foi possível conectar com o Google Play</string>
 </resources>

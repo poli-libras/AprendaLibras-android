@@ -28,4 +28,14 @@
         android:src="@drawable/play"
         android:background="@android:color/transparent"/>
 
+    <!-- sign-in button -->
+    <ImageButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/play_games_icon"
+        android:scaleType="fitCenter"
+        android:background="@android:color/transparent"/>
+
 </RelativeLayout>
