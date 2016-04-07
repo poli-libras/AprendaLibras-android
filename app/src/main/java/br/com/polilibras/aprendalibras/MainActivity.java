@@ -17,7 +17,7 @@ import com.google.android.gms.games.Games;
 import com.google.example.games.basegameutils.BaseGameUtils;
 
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleApiClient mGoogleApiClient;
     private Activity activity = this;
@@ -25,11 +25,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private boolean mResolvingConnectionFailure = false;
     private boolean mAutoStartSignInFlow = true;
     private boolean mSignInClicked = false;
+    private boolean mSignOutClicked = false;
     boolean mExplicitSignOut = false;
     boolean mInSignInFlow = false; // set to true when you're in the middle of the
     // sign in flow, to know you should not attempt
     // to connect in onStart()
-    private int REQUEST_ACHIEVEMENTS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +52,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
             }
         });
 
-        View googlePlaySignInBtn = findViewById(R.id.sign_in_button);
-        googlePlaySignInBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mSignInClicked = true;
-                mGoogleApiClient.connect();
-            }
-        });
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        findViewById(R.id.sign_out_button).setOnClickListener(this);
+
 
 
     }
 
     @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.sign_in_button) {
+            // start the asynchronous sign in flow
+            mSignInClicked = true;
+            mGoogleApiClient.connect();
+        }
+        else if (view.getId() == R.id.sign_out_button) {
+            // sign out.
+            mSignInClicked = false;
+            Games.signOut(mGoogleApiClient);
+            mGoogleApiClient.disconnect();
+
+            // show sign-in button, hide the sign-out button
+            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+            findViewById(R.id.sign_out_button).setVisibility(View.GONE);
+        }
+    }
+
+
+    @Override
     protected void onStart() {
         super.onStart();
-//        if (!mInSignInFlow && !mExplicitSignOut) {
-//            // auto sign in
-//            mGoogleApiClient.connect();
-//        }
+        mGoogleApiClient.connect();
+
     }
 
     @Override
@@ -81,8 +94,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
     @Override
     public void onConnected(Bundle connectionHint) {
-        // The player is signed in. Hide the sign-in button and allow the
-        // player to proceed.
+
+        // show sign-out button, hide the sign-in button
+        findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+        findViewById(R.id.sign_out_button).setVisibility(View.VISIBLE);
+
+        // (your code here: update UI, enable functionality that depends on sign in, etc)
+
     }
 
 
@@ -110,8 +128,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 mResolvingConnectionFailure = false;
             }
         }
-
         // Put code here to display the sign-in button
+        // show sign-in button, hide the sign-out button
+        findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+        findViewById(R.id.sign_out_button).setVisibility(View.GONE);
     }
 
     @Override
@@ -138,11 +158,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
     }
 
-    // Call when the sign-out button is clicked
-    private void signOutclicked() {
-        mSignInClicked = false;
-        Games.signOut(mGoogleApiClient);
-    }
 
 
 //    @Override
